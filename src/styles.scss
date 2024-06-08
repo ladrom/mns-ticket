@@ -1,1 +1,109 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.logo {
+  width: 100px;
+
+  img {
+    width: 100%;
+  }
+}
+
+.image {
+  position: relative;
+  overflow: hidden;
+  max-width: 500px;
+  margin: 0 auto;
+
+  img {
+    width: 100%;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid transparent;
+    border-top: 2px solid #fff;
+    animation: light-ray 4s linear infinite;
+    box-sizing: border-box;
+  }
+}
+
+.active {
+  text-decoration: underline;
+}
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.formulaire {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.snackbar-success {
+  .mdc-snackbar__surface {
+    background-color: #40d333 !important;
+  }
+
+  .mdc-snackbar__label {
+    color: white !important;
+  }
+}
+
+.snackbar-error {
+  .mdc-snackbar__surface {
+    background-color: #e11527 !important;
+  }
+
+  .mdc-snackbar__label {
+    color: white !important;
+  }
+}
+
+.textarea {
+  min-height: 150px;
+}
+
+@keyframes light-ray {
+  0% {
+    transform: rotate(0deg);
+    border-color: transparent transparent transparent #fff;
+  }
+  25% {
+    border-color: #fff transparent transparent transparent;
+  }
+  50% {
+    border-color: transparent #fff transparent transparent;
+  }
+  75% {
+    border-color: transparent transparent #fff transparent;
+  }
+  100% {
+    transform: rotate(360deg);
+    border-color: transparent transparent transparent #fff;
+  }
+}
+
+
+
+

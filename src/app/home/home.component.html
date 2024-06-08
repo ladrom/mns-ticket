@@ -1,0 +1,74 @@
+<div class="container">
+  @if (authentification.role) {
+    <div class="h4 my-4 d-flex justify-content-between">
+      <span>Salut, {{authentification.firstname + " " + authentification.lastname}}</span>
+      <span>Role: {{authentification.role}}</span>
+    </div>
+
+  @if (authentification.role == 'Etudiant') {
+    <a class="my-3" routerLink="/new-ticket" mat-raised-button color="primary">Ajouter un nouveau ticket</a>
+  }
+
+    <hr class="border border-danger border-2 opacity-50">
+
+    <div>
+      <div class="d-flex flex-column justify-content-center align-items-center border p-4 fs-4 mb-2">
+        <span class="mb-2">Nombre de tickets</span>
+        <span>{{tickets.length}}</span>
+      </div>
+
+      <div class="d-flex flex-column justify-content-center align-items-center border p-4 fs-4 mb-2">
+        <span class="mb-2">Nombre de tickets pas resolu:</span>
+        <span>{{getunresolvedNums()}}</span>
+      </div>
+    </div>
+
+    <hr class="border border-danger border-2 opacity-50">
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="tickets">
+
+      <ng-container matColumnDef="ticket_nom">
+        <th mat-header-cell *matHeaderCellDef> Ticket nom </th>
+        <td mat-cell *matCellDef="let element"> {{element.ticket_nom}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="ticket_date_creation">
+        <th mat-header-cell *matHeaderCellDef> Date creation </th>
+        <td mat-cell *matCellDef="let element"> {{this.convertDateFormat(element.ticket_date_creation)}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="message_count">
+        <th mat-header-cell *matHeaderCellDef> Nombre de messages </th>
+        <td mat-cell *matCellDef="let element"> {{element.message_count}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="statut_nom">
+        <th mat-header-cell *matHeaderCellDef> Statut </th>
+        <td mat-cell *matCellDef="let element">
+          @if (element.statut_id == 1) {
+            {{element.statut_nom}}
+          } @else {
+            {{element.statut_nom + " le " + this.convertDateFormat(element.ticket_date_resolution)}}
+          }
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="['ticket_nom', 'ticket_date_creation', 'statut_nom', 'message_count']"></tr>
+      <tr class="ticket-link" (click)="onTicketClick(row.ticket_id)" mat-row *matRowDef="let row; columns: ['ticket_nom', 'ticket_date_creation', 'statut_nom', 'message_count'];"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+  </div>
+  } @else {
+    <h1 class="text-center my-4">Pour utiliser les services, veuillez vous connecter</h1>
+
+    <div class="image">
+      <img src="/assets/images/ticket.png" alt="MNS Ticketing">
+    </div>
+  }
+</div>

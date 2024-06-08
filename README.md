@@ -1,27 +1,75 @@
-# MnslocAngular
+# MNS TICKET
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.3.
+## Description
+MNS TICKET est une application de gestion de tickets permettant aux utilisateurs de soumettre des demandes d'assistance technique. Le projet est construit avec Angular 17.3.3 et utilise un backend PHP pour gérer les requêtes et les données.
 
-## Development server
+## Fonctionnalités
+- Soumission de tickets par les utilisateurs
+- Suivi de l'état des tickets
+- Réponses des administrateurs aux tickets
+- Gestion des utilisateurs
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Prérequis
+Avant de commencer, assurez-vous d'avoir les éléments suivants installés :
+- [Angular CLI](https://cli.angular.io/) version 17.3.3
+- Un serveur web compatible PHP (Apache, Nginx, etc.)
+- Une base de données SQL (MySQL, MariaDB, etc.)
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Frontend (Angular)
+Clonez le dépôt et installez les dépendances nécessaires :
 
-## Build
+```bash
+git clone https://github.com/ladrom/mns-ticket.git
+cd mns-ticket
+npm install
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Backend (PHP)
+- Déplacez les fichiers PHP du dossier backend vers le répertoire de votre serveur web.
 
-## Running unit tests
+- Importez la base de données SQL fournie :
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Créez une nouvelle base de données dans votre serveur SQL.
+Importez le fichier SQL fourni (mns_ticket.sql) dans cette base de données.
 
-## Running end-to-end tests
+## Configuration
+Modifiez le fichier config.ts pour définir le chemin de votre backend :
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```ts
+// src/config.ts
+export const environment = {
+  production: false,
+  apiBaseUrl: 'http://votre-domaine-ou-ip/backend/'
+};
+```
 
-## Further help
+## Utilisation
+Pour démarrer l'application Angular en mode développement, exécutez :
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+ng serve
+```
+
+Ensuite, ouvrez votre navigateur et accédez à http://localhost:4200.
+
+Dans l'application, vous pouvez utiliser les utilisateurs suivants :
+
+- Nom d'utilisateur : Alex Smith (Administrateur)
+Email  : alex.smith@example.com
+
+- Nom d'utilisateur: Jessica Jones (Gestionnaire)
+Email  : jessica.jones@example.org
+
+- Nom d'utilisateur : Mark Taylor (Etudiant)
+Email : mark.taylor@example.net
+
+- Nom d'utilisateur : Emily Davis (Etudiant)
+Email  : emily.davis@example.co
+
+- Nom d'utilisateur : Michael Brown (Etudiant)
+Email  : michael.brown@example.info
+
+<span style="color:red;">Le mot de passe est le même pour tous les utilisateurs : toto</span>
+

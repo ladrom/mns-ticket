@@ -1,0 +1,29 @@
+<div class="container">
+  <h1 class="text-center my-3">Ajouter un ticket</h1>
+  <form class="formulaire" [formGroup]="formulaire" (submit)="onSubmit()">
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Nom incident</mat-label>
+      <input
+        formControlName="ticket_title"
+        type="text"
+        placeholder="Ex. Ordinateur en panne"
+        matInput
+      >
+      <mat-error>Le champs est obligatoire</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Laisser un message</mat-label>
+      <textarea
+        formControlName="ticket_text"
+        class="textarea"
+        matInput
+        placeholder="Rien ne marche..."></textarea>
+      <mat-error>Le champs est obligatoire</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary">
+      Envoyer
+    </button>
+  </form>
+</div>

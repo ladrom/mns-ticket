@@ -1,0 +1,83 @@
+<div class="container">
+  @if (messages.length > 0) {
+    <h1 class="text-center my-4 display-1 text-uppercase">{{messages[0]['ticket_nom']}}</h1>
+
+
+  <hr class="border border-danger border-2 opacity-50">
+
+  <div class="fs-5 my-4">
+    <span
+      class="p-2 rounded"
+      [ngClass]="{
+        'bg-primary': messages[0]['statut_id'] == 1,
+        'text-decoration-line-through':  messages[0]['statut_id'] != 1
+      }"
+    >En cours</span>
+    |
+    <span
+      class="p-2 rounded"
+      [ngClass]="{'bg-success': messages[0]['statut_id'] == 2,
+      'text-decoration-line-through':  messages[0]['statut_id'] != 2
+
+      }"
+
+    >Resolu</span>
+  </div>
+
+  <hr class="border border-danger border-2 opacity-50">
+
+  <div class="list-group">
+    @for (message of messages; track $index) {
+      <div
+        class="list-group-item list-group-item-action d-flex flex-column my-2 w-75 rounded"
+        [ngClass]="{
+          'ms-auto': message.utilisateur_id != authentification.id,
+          'list-group-item-primary': message.utilisateur_id != authentification.id,
+          'list-group-item-success': message.utilisateur_id == authentification.id
+        }"
+      >
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">Message #{{$index + 1}}</h5>
+          <small>
+            {{message.utilisateur_firstname + " " + message.utilisateur_lastname + " (" + message.role_name + ")"}}
+          </small>
+        </div>
+        <p class="mb-1 fs-4 my-3">{{message.message_contenu}}</p>
+      </div>
+    }
+  </div>
+
+  <hr class="border border-danger border-2 opacity-50">
+
+  @if (messages[0]['statut_id'] == 1) {
+    <h2 class="text-center my-4">Laisser un nouveau message</h2>
+    <form [formGroup]="formulaire" class="formulaire" (submit)="onSubmit()">
+      <mat-form-field class="example-full-width">
+        <mat-label>Laisser un message</mat-label>
+        <textarea
+          formControlName="text"
+          name="text"
+          class="textarea"
+          matInput
+          placeholder="Rien ne marche..."></textarea>
+        <mat-error>Le champs est obligatoire</mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary">
+        Envoyer
+      </button>
+    </form>
+  }
+    @if (authentification.role == 'Administrateur' || authentification.role == 'Gestionnaire') {
+      <div class="formulaire">
+        <button (click)="onResolve()" class="button my-4" type="button" mat-raised-button color="primary">
+          @if (messages[0].statut_id == 1) {
+            Marqué comme résolu
+          } @else {
+            Marqué comme pas résolu
+          }
+        </button>
+      </div>
+    }
+  }
+</div>
+
