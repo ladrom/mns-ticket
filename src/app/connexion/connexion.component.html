@@ -1,29 +1,31 @@
-<h1 class="text-center py-4">Se connecter</h1>
+<div class="container">
+  <h1 class="text-center py-4">Se connecter</h1>
 
-<form class="formulaire py-2" (ngSubmit)="onConnexion()" [formGroup]="formulaire">
-  <mat-form-field>
-    <mat-label>Email</mat-label>
-    <input
-      matInput
-      placeholder="Ex. john.doe@domain.com"
-      formControlName="email"
-    />
+  <form class="formulaire py-2" (ngSubmit)="onConnexion()" [formGroup]="formulaire">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        placeholder="Ex. john.doe@domain.com"
+        formControlName="email"
+      />
 
-    @if(formulaire.get('email')?.hasError('required')) {
+      @if(formulaire.get('email')?.hasError('required')) {
         <mat-error>L'email est obligatoire</mat-error>
-    }
+      }
 
-    @if(formulaire.get('email')?.hasError('email')) {
+      @if(formulaire.get('email')?.hasError('email')) {
         <mat-error>L'email est mal formé</mat-error>
-    }
-  
-  </mat-form-field>
+      }
 
-  <mat-form-field>
-    <mat-label>Mot de passe</mat-label>
-    <input matInput type="password" formControlName="password" />
-    <mat-error>Le mot de passe est obligatoire</mat-error>
-  </mat-form-field>
+    </mat-form-field>
 
-  <button mat-raised-button color="primary" type="submit">Se connecter</button>
-</form>
+    <mat-form-field>
+      <mat-label>Mot de passe</mat-label>
+      <input matInput type="password" formControlName="password" />
+      <mat-error>Le mot de passe est obligatoire</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Se connecter</button>
+  </form>
+</div>

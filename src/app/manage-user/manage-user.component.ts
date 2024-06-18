@@ -4,7 +4,7 @@ import {RouterLink} from "@angular/router";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {Utilisateur} from "../models/Utilisateur.type";
 import {MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {MatIconModule} from "@angular/material/icon";
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AuthentificationService} from "../authentification.service";
@@ -22,18 +22,27 @@ export class ManageUserComponent {
   snackBar: MatSnackBar = inject(MatSnackBar);
   listeUtilisateurs: Utilisateur[] = [];
   authentification: AuthentificationService = inject(AuthentificationService);
+  page: number = 0;
+  nombrePage: number = 5;
+  totalUtilisateurs: number = 0;
 
   ngOnInit() {
     this.onRechargeUtilisateur();
+  }
 
+  onPaginatorChange(e:PageEvent) {
+    this.page = e.pageIndex;
+    this.nombrePage = e.pageSize;
 
+    this.onRechargeUtilisateur();
   }
   onRechargeUtilisateur() {
-    this.http.get<Utilisateur[]>(
-      `${environment.apiBaseUrl}list-user.php`
+    this.http.get<any>(
+      `${environment.apiBaseUrl}list-user.php?page=${this.page}&nombrePage=${this.nombrePage}`
     )
       .subscribe((resultat) => {
-        this.listeUtilisateurs = resultat;
+        this.listeUtilisateurs = resultat.utilisateurs;
+        this.totalUtilisateurs = resultat.total;
       })
   }
 

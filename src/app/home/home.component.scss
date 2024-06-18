@@ -5,3 +5,19 @@
 .ticket-link:hover {
   background-color: rgb(98, 98, 98);
 }
+
+.mat-elevation-z8 {
+  position: relative;
+}
+
+.table-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.table-overlay > * {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

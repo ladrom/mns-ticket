@@ -14,12 +14,12 @@
     <div>
       <div class="d-flex flex-column justify-content-center align-items-center border p-4 fs-4 mb-2">
         <span class="mb-2">Nombre de tickets</span>
-        <span>{{tickets.length}}</span>
+        <span>{{totalTickets}}</span>
       </div>
 
       <div class="d-flex flex-column justify-content-center align-items-center border p-4 fs-4 mb-2">
         <span class="mb-2">Nombre de tickets pas resolu:</span>
-        <span>{{getunresolvedNums()}}</span>
+        <span>{{ticketsNotResolved}}</span>
       </div>
     </div>
 
@@ -61,11 +61,39 @@
 
     <mat-paginator [pageSizeOptions]="[5, 10, 20]"
                    showFirstLastButtons
-                   aria-label="Select page of periodic elements">
+                   aria-label="Select page of periodic elements"
+                   (page)="onPaginatorChange($event)"
+                   [length]="totalTickets"
+    >
+
     </mat-paginator>
+    @if (hasSpinner) {
+      <div class="table-overlay">
+        <mat-spinner></mat-spinner>
+      </div>
+    }
   </div>
   } @else {
     <h1 class="text-center my-4">Pour utiliser les services, veuillez vous connecter</h1>
+    
+    <h2 class="text-center my-4">Message de Sécurité</h2>
+
+    <div>
+      <p>Pour des raisons de sécurité, j'ai restreint certaines fonctionnalités de ce site. Les utilisateurs ne peuvent plus ajouter de nouveaux messages ou tickets dans la base de données. Ils peuvent seulement changer le statut des tickets déjà ouverts.</p>
+
+      <p>Si vous souhaitez tester le site avec toutes ses fonctionnalités, vous pouvez télécharger le répertoire complet depuis
+        <a href="https://github.com/ladrom/mns-ticket">GitHub</a>.</p>
+
+      <p>Pour faciliter les tests, deux comptes utilisateurs sont disponibles en accès libre :</p>
+
+      <ul>
+        <li>Jessica Jones (Gestionnaire) : jessica.jones&#64;example.org</li>
+        <li>Mark Taylor (Étudiant) : mark.taylor&#64;example.net</li>
+        <li>Le mot de passe pour ces deux comptes est : <strong>toto</strong> </li>
+      </ul>
+
+      <p>Merci de votre compréhension.</p>
+    </div>
 
     <div class="image">
       <img src="/assets/images/ticket.png" alt="MNS Ticketing">

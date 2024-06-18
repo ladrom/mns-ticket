@@ -39,7 +39,7 @@ export class TicketDetailsComponent {
     this.route.params.subscribe(paramsUrl => {
       if (paramsUrl['id'] && !isNaN(paramsUrl['id'])) {
         this.ticketId = paramsUrl['id'];
-        this.http.get<Message[]>(`${environment.apiBaseUrl}get-ticket-details/php?id=` + paramsUrl['id']).subscribe({
+        this.http.get<Message[]>(`${environment.apiBaseUrl}get-ticket-details.php?id=` + paramsUrl['id']).subscribe({
           next: data => {
             this.messages = data;
             this.ticketId = paramsUrl['id']

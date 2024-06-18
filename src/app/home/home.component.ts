@@ -5,9 +5,10 @@ import {Ticket} from "../models/Ticket.type";
 import {MatTableModule} from "@angular/material/table";
 import {MatIcon} from "@angular/material/icon";
 import {MatAnchor, MatButton, MatMiniFabButton} from "@angular/material/button";
-import {MatPaginator} from "@angular/material/paginator";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {Router, RouterLink} from "@angular/router";
 import {environment} from "../../config";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 
 @Component({
@@ -20,7 +21,8 @@ import {environment} from "../../config";
     RouterLink,
     MatTableModule,
     MatButton,
-    MatAnchor
+    MatAnchor,
+    MatProgressSpinner
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -31,11 +33,30 @@ export class HomeComponent {
   tickets: Ticket[] = [];
   ticketsNotResolved: number = 0;
   router: Router = inject(Router);
+  page: number = 0;
+  nombrePage: number = 5;
+  totalTickets: number = 0;
+  hasSpinner: boolean = false;
 
   ngOnInit() {
-    this.http.get<Ticket[]>(`${environment.apiBaseUrl}get-tickets.php`).subscribe({
+    this.onRechargeTickets();
+  }
+
+  onPaginatorChange(e:PageEvent) {
+    this.page = e.pageIndex;
+    this.nombrePage = e.pageSize;
+
+    this.onRechargeTickets();
+  }
+
+  onRechargeTickets() {
+    this.hasSpinner = true;
+    this.http.get<any>(`${environment.apiBaseUrl}get-tickets.php?page=${this.page}&nombrePage=${this.nombrePage}`).subscribe({
       next: data => {
-        this.tickets = data;
+        this.tickets = data.tickets;
+        this.totalTickets = data.totalTickets;
+        this.ticketsNotResolved = data.totalTicketsPasResolu;
+        this.hasSpinner = false;
       },
       error: error => {
         console.log(error);
